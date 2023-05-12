@@ -1,10 +1,14 @@
 package bkdn.afoodbe.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "staff")
 public class Staff {
@@ -19,6 +23,18 @@ public class Staff {
     @Column(name = "password", nullable = false, length = 45)
     private String password;
 
+    @Column(name = "role", nullable = false, length = 45)
+    private String role;
+
+    @Column(name = "full_name", nullable = false, length = 45)
+    private String fullName;
+
+    @Column(name = "phone_number", length = 45)
+    private String phoneNumber;
+
+    @Column(name = "citizen_id", length = 45)
+    private String citizenId;
+
     @OneToMany(mappedBy = "staff")
     private Set<Order> orders = new LinkedHashSet<>();
 
@@ -27,64 +43,5 @@ public class Staff {
 
     @OneToMany(mappedBy = "staff")
     private Set<OrderDelivery> orderDeliveries = new LinkedHashSet<>();
-
-    @OneToMany(mappedBy = "staff")
-    private Set<StaffInfo> staffInfos = new LinkedHashSet<>();
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public Set<Order> getOrders() {
-        return orders;
-    }
-
-    public void setOrders(Set<Order> orders) {
-        this.orders = orders;
-    }
-
-    public Set<TableRestaurant> getTableRestaurants() {
-        return tableRestaurants;
-    }
-
-    public void setTableRestaurants(Set<TableRestaurant> tableRestaurants) {
-        this.tableRestaurants = tableRestaurants;
-    }
-
-    public Set<OrderDelivery> getOrderDeliveries() {
-        return orderDeliveries;
-    }
-
-    public void setOrderDeliveries(Set<OrderDelivery> orderDeliveries) {
-        this.orderDeliveries = orderDeliveries;
-    }
-
-    public Set<StaffInfo> getStaffInfos() {
-        return staffInfos;
-    }
-
-    public void setStaffInfos(Set<StaffInfo> staffInfos) {
-        this.staffInfos = staffInfos;
-    }
 
 }

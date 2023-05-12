@@ -1,10 +1,14 @@
 package bkdn.afoodbe.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "table_restaurant")
 public class TableRestaurant {
@@ -29,53 +33,5 @@ public class TableRestaurant {
 
     @OneToMany(mappedBy = "table")
     private Set<TableSitting> tableSittings = new LinkedHashSet<>();
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public TableArea getTableArea() {
-        return tableArea;
-    }
-
-    public void setTableArea(TableArea tableArea) {
-        this.tableArea = tableArea;
-    }
-
-    public Integer getMaxCapacity() {
-        return maxCapacity;
-    }
-
-    public void setMaxCapacity(Integer maxCapacity) {
-        this.maxCapacity = maxCapacity;
-    }
-
-    public Staff getServingStaff() {
-        return servingStaff;
-    }
-
-    public void setServingStaff(Staff servingStaff) {
-        this.servingStaff = servingStaff;
-    }
-
-    public String getTableStatus() {
-        return tableStatus;
-    }
-
-    public void setTableStatus(String tableStatus) {
-        this.tableStatus = tableStatus;
-    }
-
-    public Set<TableSitting> getTableSittings() {
-        return tableSittings;
-    }
-
-    public void setTableSittings(Set<TableSitting> tableSittings) {
-        this.tableSittings = tableSittings;
-    }
 
 }

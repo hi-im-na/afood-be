@@ -1,7 +1,11 @@
 package bkdn.afoodbe.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "order_delivery")
 public class OrderDelivery {
@@ -20,37 +24,5 @@ public class OrderDelivery {
 
     @Column(name = "delivery_status", nullable = false, length = 45)
     private String deliveryStatus;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public OrderFood getOrderFood() {
-        return orderFood;
-    }
-
-    public void setOrderFood(OrderFood orderFood) {
-        this.orderFood = orderFood;
-    }
-
-    public Staff getStaff() {
-        return staff;
-    }
-
-    public void setStaff(Staff staff) {
-        this.staff = staff;
-    }
-
-    public String getDeliveryStatus() {
-        return deliveryStatus;
-    }
-
-    public void setDeliveryStatus(String deliveryStatus) {
-        this.deliveryStatus = deliveryStatus;
-    }
 
 }

@@ -1,12 +1,16 @@
 package bkdn.afoodbe.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "food")
 public class Food {
@@ -36,69 +40,5 @@ public class Food {
 
     @OneToMany(mappedBy = "food")
     private Set<MenuFood> menuFoods = new LinkedHashSet<>();
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public BigDecimal getCost() {
-        return cost;
-    }
-
-    public void setCost(BigDecimal cost) {
-        this.cost = cost;
-    }
-
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-    public Instant getDateUpdated() {
-        return dateUpdated;
-    }
-
-    public void setDateUpdated(Instant dateUpdated) {
-        this.dateUpdated = dateUpdated;
-    }
-
-    public Set<OrderFood> getOrderFoods() {
-        return orderFoods;
-    }
-
-    public void setOrderFoods(Set<OrderFood> orderFoods) {
-        this.orderFoods = orderFoods;
-    }
-
-    public Set<MenuFood> getMenuFoods() {
-        return menuFoods;
-    }
-
-    public void setMenuFoods(Set<MenuFood> menuFoods) {
-        this.menuFoods = menuFoods;
-    }
 
 }

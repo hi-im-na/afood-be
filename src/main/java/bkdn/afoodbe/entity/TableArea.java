@@ -1,10 +1,14 @@
 package bkdn.afoodbe.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "table_area")
 public class TableArea {
@@ -22,37 +26,5 @@ public class TableArea {
 
     @OneToMany(mappedBy = "tableArea")
     private Set<TableRestaurant> tableRestaurants = new LinkedHashSet<>();
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getAreaName() {
-        return areaName;
-    }
-
-    public void setAreaName(String areaName) {
-        this.areaName = areaName;
-    }
-
-    public String getAreaDescription() {
-        return areaDescription;
-    }
-
-    public void setAreaDescription(String areaDescription) {
-        this.areaDescription = areaDescription;
-    }
-
-    public Set<TableRestaurant> getTableRestaurants() {
-        return tableRestaurants;
-    }
-
-    public void setTableRestaurants(Set<TableRestaurant> tableRestaurants) {
-        this.tableRestaurants = tableRestaurants;
-    }
 
 }

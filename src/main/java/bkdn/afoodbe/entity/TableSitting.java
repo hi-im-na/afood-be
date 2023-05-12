@@ -1,11 +1,15 @@
 package bkdn.afoodbe.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.Instant;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "table_sitting")
 public class TableSitting {
@@ -29,53 +33,5 @@ public class TableSitting {
 
     @OneToMany(mappedBy = "tableSitting")
     private Set<Order> orders = new LinkedHashSet<>();
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Instant getInTime() {
-        return inTime;
-    }
-
-    public void setInTime(Instant inTime) {
-        this.inTime = inTime;
-    }
-
-    public Instant getOutTime() {
-        return outTime;
-    }
-
-    public void setOutTime(Instant outTime) {
-        this.outTime = outTime;
-    }
-
-    public Integer getNumPersonSitting() {
-        return numPersonSitting;
-    }
-
-    public void setNumPersonSitting(Integer numPersonSitting) {
-        this.numPersonSitting = numPersonSitting;
-    }
-
-    public TableRestaurant getTable() {
-        return table;
-    }
-
-    public void setTable(TableRestaurant table) {
-        this.table = table;
-    }
-
-    public Set<Order> getOrders() {
-        return orders;
-    }
-
-    public void setOrders(Set<Order> orders) {
-        this.orders = orders;
-    }
 
 }

@@ -1,10 +1,14 @@
 package bkdn.afoodbe.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "order_food")
 public class OrderFood {
@@ -26,45 +30,5 @@ public class OrderFood {
 
     @OneToMany(mappedBy = "orderFood")
     private Set<OrderDelivery> orderDeliveries = new LinkedHashSet<>();
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Order getOrder() {
-        return order;
-    }
-
-    public void setOrder(Order order) {
-        this.order = order;
-    }
-
-    public Food getFood() {
-        return food;
-    }
-
-    public void setFood(Food food) {
-        this.food = food;
-    }
-
-    public Integer getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
-    }
-
-    public Set<OrderDelivery> getOrderDeliveries() {
-        return orderDeliveries;
-    }
-
-    public void setOrderDeliveries(Set<OrderDelivery> orderDeliveries) {
-        this.orderDeliveries = orderDeliveries;
-    }
 
 }
