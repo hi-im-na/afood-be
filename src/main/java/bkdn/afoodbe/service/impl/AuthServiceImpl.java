@@ -1,8 +1,5 @@
 package bkdn.afoodbe.service.impl;
 
-import bkdn.afoodbe.dto.CreateStaffDTO;
-import bkdn.afoodbe.entity.Staff;
-import bkdn.afoodbe.exception.HttpError;
 import bkdn.afoodbe.exception.UnauthorizedError;
 import bkdn.afoodbe.jwt.JwtTokenProvider;
 import bkdn.afoodbe.repository.StaffRepository;
@@ -10,9 +7,7 @@ import bkdn.afoodbe.service.IAuthService;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;

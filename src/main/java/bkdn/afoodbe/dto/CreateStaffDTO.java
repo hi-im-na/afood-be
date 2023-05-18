@@ -1,6 +1,5 @@
 package bkdn.afoodbe.dto;
 
-import bkdn.afoodbe.model.Role;
 import lombok.Builder;
 import lombok.Data;
 

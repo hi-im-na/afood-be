@@ -27,7 +27,7 @@ public class AdminServiceImpl implements IAdminService {
     public List<StaffDTO> getAllStaff() {
         List<Staff> staffList = staffRepository.findAll();
         if (staffList.isEmpty()) {
-
+            throw new HttpError("Staff list is empty", HttpStatus.NOT_FOUND);
         }
         return staffList.stream().map(StaffDTO::toStaffDTO).collect(Collectors.toList());
     }
