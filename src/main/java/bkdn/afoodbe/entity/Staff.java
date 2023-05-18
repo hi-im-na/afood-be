@@ -1,8 +1,8 @@
 package bkdn.afoodbe.entity;
 
+import bkdn.afoodbe.model.Role;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -10,6 +10,9 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
+@RequiredArgsConstructor
+@AllArgsConstructor
+@Builder
 @Table(name = "staff")
 public class Staff {
     @Id
@@ -20,11 +23,13 @@ public class Staff {
     @Column(name = "username", nullable = false, length = 45)
     private String username;
 
-    @Column(name = "password", nullable = false, length = 45)
+    @Column(name = "password", nullable = false, length = 200)
     private String password;
 
     @Column(name = "role", nullable = false, length = 45)
-    private String role;
+    @Enumerated(EnumType.STRING)
+    @Builder.Default
+    private Role role = Role.ROLE_STAFF;
 
     @Column(name = "full_name", nullable = false, length = 45)
     private String fullName;
