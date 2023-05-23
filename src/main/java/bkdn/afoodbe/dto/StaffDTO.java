@@ -4,6 +4,8 @@ import bkdn.afoodbe.entity.Staff;
 import bkdn.afoodbe.model.Role;
 import lombok.Builder;
 
+import java.io.Serializable;
+
 @Builder
 public record StaffDTO(
         Integer id,
@@ -11,7 +13,7 @@ public record StaffDTO(
         Role role,
         String fullName,
         String phoneNumber,
-        String citizenId) {
+        String citizenId) implements Serializable {
     public static StaffDTO toStaffDTO(Staff staff) {
         return StaffDTO.builder()
                 .id(staff.getId())

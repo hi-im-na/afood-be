@@ -1,4 +1,6 @@
 package bkdn.afoodbe.dto;
 
-public record LoginDTO(String username, String password) {
+import java.io.Serializable;
+
+public record LoginDTO(String username, String password) implements Serializable {
 }

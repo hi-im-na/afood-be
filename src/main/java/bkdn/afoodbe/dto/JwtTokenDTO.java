@@ -1,4 +1,6 @@
 package bkdn.afoodbe.dto;
 
-public record JwtTokenDTO(String token, long duration) {
+import java.io.Serializable;
+
+public record JwtTokenDTO(String token, long duration) implements Serializable {
 }
