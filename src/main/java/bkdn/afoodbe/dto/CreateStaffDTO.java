@@ -1,14 +1,7 @@
 package bkdn.afoodbe.dto;
 
-import lombok.Builder;
-import lombok.Data;
+import java.io.Serializable;
 
-@Data
-@Builder
-public class CreateStaffDTO {
-    private String username;
-    private String password;
-    private String fullName;
-    private String phoneNumber;
-    private String citizenId;
+public record CreateStaffDTO(String username, String password, String fullName, String phoneNumber,
+                             String citizenId) implements Serializable {
 }
