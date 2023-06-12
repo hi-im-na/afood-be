@@ -15,7 +15,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Set;
 
 @RestController
 @RequestMapping("/api/manager")
@@ -50,12 +49,6 @@ public class ManagerController {
     public ResponseEntity<Object> addFoodToMenu(int menuId, int foodId) {
         MenuFood menuFood = menuFoodService.addMenuFood(menuId, foodId);
         return ResponseEntity.ok(menuFood);
-    }
-
-    @GetMapping("/foods/findallfoodfrommenu")
-    public ResponseEntity<Object> findAllFoodByMenuId(int menuId) {
-        Set<FoodDto> foods = foodService.findAllFoodByMenuId(menuId);
-        return ResponseEntity.ok(foods);
     }
 
     @DeleteMapping("/foods/deletefoodfrommenu")

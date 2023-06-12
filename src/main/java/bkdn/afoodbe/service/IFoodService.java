@@ -17,6 +17,6 @@ public interface IFoodService {
 
     void deleteFood(int id);
 
-    Set<FoodDto> findAllFoodByMenuId(int menuId);
+    Set<FoodDto> findFoodsByMenuId(int menuId);
 
 }

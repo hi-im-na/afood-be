@@ -76,7 +76,7 @@ public class FoodServiceImpl implements IFoodService {
     }
 
     @Override
-    public Set<FoodDto> findAllFoodByMenuId(int menuId) {
+    public Set<FoodDto> findFoodsByMenuId(int menuId) {
         Menu menu = menuRepository.findById(menuId);
         if (menu == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Menu with id " + menuId + " not found");
