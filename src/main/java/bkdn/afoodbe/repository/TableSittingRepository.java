@@ -4,4 +4,5 @@ import bkdn.afoodbe.entity.TableSitting;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface TableSittingRepository extends JpaRepository<TableSitting, Integer> {
+    TableSitting findById(int id);
 }
