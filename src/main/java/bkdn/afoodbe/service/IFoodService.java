@@ -19,4 +19,6 @@ public interface IFoodService {
 
     Set<FoodDto> findFoodsByMenuId(int menuId);
 
+    Set<FoodDto> findFoodsByOrderId(int orderId);
+
 }

@@ -1,5 +1,6 @@
 package bkdn.afoodbe.service;
 
+import bkdn.afoodbe.dto.MenuFoodDto;
 import bkdn.afoodbe.entity.Food;
 import bkdn.afoodbe.entity.Menu;
 import bkdn.afoodbe.entity.MenuFood;
@@ -26,7 +27,7 @@ public class MenuFoodService {
      * @param foodId food id
      * @return {@link MenuFood}: a record in menu_food table
      */
-    public MenuFood addMenuFood(int menuId, int foodId) {
+    public MenuFoodDto addMenuFood(int menuId, int foodId) {
         Menu menu = menuRepository.findById(menuId);
         Food food = foodRepository.findById(foodId);
         if (menu == null) {
@@ -42,7 +43,8 @@ public class MenuFoodService {
         menuFood.setMenu(menu);
         menuFood.setFood(food);
 
-        return menuFoodRepository.saveAndFlush(menuFood);
+        MenuFood newMenuFood = menuFoodRepository.saveAndFlush(menuFood);
+        return MenuFoodDto.toMenuFoodDto(newMenuFood);
     }
 
     public void deleteMenuFood(int menuId, int foodId) {

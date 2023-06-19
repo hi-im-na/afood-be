@@ -2,11 +2,10 @@ package bkdn.afoodbe.service.impl;
 
 import bkdn.afoodbe.dto.CreateFoodDto;
 import bkdn.afoodbe.dto.FoodDto;
-import bkdn.afoodbe.entity.Food;
-import bkdn.afoodbe.entity.Menu;
-import bkdn.afoodbe.entity.MenuFood;
+import bkdn.afoodbe.entity.*;
 import bkdn.afoodbe.repository.FoodRepository;
 import bkdn.afoodbe.repository.MenuRepository;
+import bkdn.afoodbe.repository.OrderRepository;
 import bkdn.afoodbe.service.IFoodService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +23,7 @@ public class FoodServiceImpl implements IFoodService {
 
     private final FoodRepository foodRepository;
     private final MenuRepository menuRepository;
+    private final OrderRepository orderRepository;
 
     @Override
     public List<FoodDto> getAllFood() {
@@ -85,6 +85,20 @@ public class FoodServiceImpl implements IFoodService {
 
         return menuFoods.stream()
                 .map(MenuFood::getFood)
+                .map(FoodDto::toFoodDto)
+                .collect(Collectors.toSet());
+    }
+
+    @Override
+    public Set<FoodDto> findFoodsByOrderId(int orderId) {
+        Order order = orderRepository.findById(orderId);
+        if (order == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Order with id " + orderId + " not found");
+        }
+        Set<OrderFood> orderFoods = order.getOrderFoods();
+
+        return orderFoods.stream()
+                .map(OrderFood::getFood)
                 .map(FoodDto::toFoodDto)
                 .collect(Collectors.toSet());
     }
