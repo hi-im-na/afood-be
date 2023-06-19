@@ -25,7 +25,7 @@ public class PublicController {
     private final IMenuService menuService;
     private final TableAreaService tableAreaService;
     private final TableRestaurantService tableRestaurantService;
-
+    // ********** MENU **********
     @GetMapping("/menus")
     public ResponseEntity<Object> getAllMenu() {
         List<MenuDto> menus = menuService.getAllMenu();
@@ -33,6 +33,7 @@ public class PublicController {
         return ResponseEntity.ok(menus);
     }
 
+    // ********** FOOD **********
     @GetMapping("/foods")
     public ResponseEntity<Object> getAllFood() {
         List<FoodDto> foods = foodService.getAllFood();
@@ -45,6 +46,7 @@ public class PublicController {
         return ResponseEntity.ok(foods);
     }
 
+    // ********** TABLE **********
     @GetMapping("/tables")
     public ResponseEntity<Object> getAllTable() {
         return ResponseEntity.ok(tableRestaurantService.getAllTableRestaurant());
