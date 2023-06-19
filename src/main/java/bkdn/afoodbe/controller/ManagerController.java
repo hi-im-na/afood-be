@@ -1,13 +1,7 @@
 package bkdn.afoodbe.controller;
 
-import bkdn.afoodbe.dto.CreateFoodDto;
-import bkdn.afoodbe.dto.CreateMenuDto;
-import bkdn.afoodbe.dto.FoodDto;
-import bkdn.afoodbe.dto.MenuDto;
-import bkdn.afoodbe.entity.MenuFood;
-import bkdn.afoodbe.service.IFoodService;
-import bkdn.afoodbe.service.IMenuService;
-import bkdn.afoodbe.service.MenuFoodService;
+import bkdn.afoodbe.dto.*;
+import bkdn.afoodbe.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +9,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/api/manager")
@@ -23,8 +18,9 @@ import java.util.List;
 public class ManagerController {
     private final IFoodService foodService;
     private final IMenuService menuService;
+    private final OrderService orderService;
     private final MenuFoodService menuFoodService;
-
+    private final OrderFoodService orderFoodService;
 
     // ********** FOOD **********
     @GetMapping("/foods")
@@ -33,7 +29,7 @@ public class ManagerController {
         return ResponseEntity.ok(foods);
     }
 
-    @GetMapping("/foods/create")
+    @PostMapping("/foods/create")
     public ResponseEntity<Object> addFood(CreateFoodDto createFoodDto) {
         FoodDto food = foodService.addFood(createFoodDto);
         return ResponseEntity.ok(food);
@@ -45,9 +41,15 @@ public class ManagerController {
         return ResponseEntity.ok(foods);
     }
 
+    @GetMapping("/foods/findfoodsbyorderid")
+    public ResponseEntity<Object> findFoodsByOrderId(int orderId) {
+        Set<FoodDto> foods = foodService.findFoodsByOrderId(orderId);
+        return ResponseEntity.ok(foods);
+    }
+
     @PostMapping("/foods/addfoodtomenu")
     public ResponseEntity<Object> addFoodToMenu(int menuId, int foodId) {
-        MenuFood menuFood = menuFoodService.addMenuFood(menuId, foodId);
+        MenuFoodDto menuFood = menuFoodService.addMenuFood(menuId, foodId);
         return ResponseEntity.ok(menuFood);
     }
 
@@ -56,7 +58,6 @@ public class ManagerController {
         menuFoodService.deleteMenuFood(menuId, foodId);
         return ResponseEntity.ok("Delete success");
     }
-
 
 
     // ********** MENU **********
@@ -71,5 +72,45 @@ public class ManagerController {
     public ResponseEntity<Object> createMenu(CreateMenuDto createMenuDto) {
         MenuDto menu = menuService.createMenu(createMenuDto);
         return ResponseEntity.ok(menu);
+    }
+
+    // ********** ORDER **********
+    @GetMapping("/orders")
+    public ResponseEntity<Object> getAllOrder() {
+        List<OrderDto> orders = orderService.getAllOrder();
+        return ResponseEntity.ok(orders);
+    }
+
+    @PostMapping("/orders/addorder")
+    public ResponseEntity<Object> addOrder(CreateOrderDto createOrderDto) {
+        System.out.println("createOrderDto = " + createOrderDto);
+        OrderDto order = orderService.addOrder(createOrderDto);
+        return ResponseEntity.ok(order);
+    }
+
+    @PostMapping("/orders/addfoodtoorder")
+    public ResponseEntity<Object> addFoodToOrder(int orderId, int foodId, int quantity) {
+        OrderFoodDto orderFood = orderFoodService.addOrderFood(orderId, foodId, quantity);
+        return ResponseEntity.ok(orderFood);
+    }
+
+    @DeleteMapping("/orders/deletefoodfromorder")
+    public ResponseEntity<Object> deleteFoodFromOrder(int orderId, int foodId) {
+        orderFoodService.deleteOrderFood(orderId, foodId);
+        return ResponseEntity.ok("Delete success");
+    }
+
+    @PutMapping("/orders/updatestatus")
+    public ResponseEntity<Object> updateStatusOrder(int orderId, String status) {
+        OrderDto order = orderService.updateOrderStatus(orderId, status);
+        return ResponseEntity.ok(order);
+    }
+
+
+    // ********** ORDER FOOD **********
+    @GetMapping("/orderfood/findbyorderid")
+    public ResponseEntity<Object> findOrderFoodByOrderId(int orderId) {
+        Set<OrderFoodDto> orderFoods = orderFoodService.findByOrderId(orderId);
+        return ResponseEntity.ok(orderFoods);
     }
 }
