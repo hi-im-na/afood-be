@@ -15,6 +15,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
@@ -35,6 +37,31 @@ public class OrderService {
         return orderList.stream().map(OrderDto::toOrderDto).collect(Collectors.toList());
     }
 
+    public Long countOrders() {
+        return orderRepository.count();
+    }
+
+    public BigDecimal sumTotalCost() {
+        return orderRepository.sumTotalCost();
+    }
+
+    public BigDecimal averageCost() {
+        return orderRepository.averageCost().setScale(2, RoundingMode.HALF_UP);
+    }
+
+    public BigDecimal conversionRate() {
+        Long paidOrders = orderRepository.countPaidOrders();
+        long unpaidOrders = orderRepository.count();
+
+        if (paidOrders == 0) {
+            return BigDecimal.ZERO;
+        }
+        if (unpaidOrders == 0) {
+            return BigDecimal.ONE;
+        }
+        return BigDecimal.valueOf(paidOrders).divide(BigDecimal.valueOf(unpaidOrders), 2, RoundingMode.HALF_UP);
+    }
+
     public OrderDto addOrder(CreateOrderDto createOrderDto) {
         Optional<Staff> staff = staffRepository.findById(createOrderDto.staffId());
         if (staff.isEmpty()) {
@@ -49,6 +76,7 @@ public class OrderService {
                 .orderStatus(OrderStatus.SERVING.toString())
                 .staff(staff.get())
                 .tableSitting(tableSitting.get())
+                .totalCost(createOrderDto.totalCost())
                 .build();
         orderRepository.save(order);
         return OrderDto.toOrderDto(order);

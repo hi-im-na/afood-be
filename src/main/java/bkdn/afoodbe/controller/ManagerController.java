@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Set;
 
@@ -79,6 +80,30 @@ public class ManagerController {
     public ResponseEntity<Object> getAllOrder() {
         List<OrderDto> orders = orderService.getAllOrder();
         return ResponseEntity.ok(orders);
+    }
+
+    @GetMapping("/orders/countorders")
+    public ResponseEntity<Object> countOrders() {
+        Long count = orderService.countOrders();
+        return ResponseEntity.ok(count);
+    }
+
+    @GetMapping("/orders/totalCostAllOrder")
+    public ResponseEntity<Object> totalCostAllOrder() {
+        BigDecimal totalCost = orderService.sumTotalCost();
+        return ResponseEntity.ok(totalCost);
+    }
+
+    @GetMapping("/orders/averagecost")
+    public ResponseEntity<Object> averageCost() {
+        BigDecimal averageCost = orderService.averageCost();
+        return ResponseEntity.ok(averageCost);
+    }
+
+    @GetMapping("/orders/conversionrate")
+    public ResponseEntity<Object> conversionRate() {
+        BigDecimal conversionRate = orderService.conversionRate();
+        return ResponseEntity.ok(conversionRate);
     }
 
     @PostMapping("/orders/addorder")
