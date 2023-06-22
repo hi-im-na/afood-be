@@ -3,6 +3,7 @@ package bkdn.afoodbe.dto;
 import lombok.Builder;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.Instant;
 
 /**
@@ -10,7 +11,7 @@ import java.time.Instant;
  */
 @Builder
 public record OrderDto(Integer id, Instant orderInTime, Instant orderOutTime, Integer tableSittingId, Integer staffId,
-                       String orderStatus) implements Serializable {
+                       String orderStatus, BigDecimal totalCost) implements Serializable {
     public static OrderDto toOrderDto(bkdn.afoodbe.entity.Order order) {
         return OrderDto.builder()
                 .id(order.getId())
@@ -19,6 +20,7 @@ public record OrderDto(Integer id, Instant orderInTime, Instant orderOutTime, In
                 .tableSittingId(order.getTableSitting().getId())
                 .staffId(order.getStaff().getId())
                 .orderStatus(order.getOrderStatus())
+                .totalCost(order.getTotalCost())
                 .build();
     }
 }

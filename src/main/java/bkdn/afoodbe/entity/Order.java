@@ -3,6 +3,7 @@ package bkdn.afoodbe.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -36,6 +37,9 @@ public class Order {
 
     @Column(name = "order_status", nullable = false, length = 45)
     private String orderStatus;
+
+    @Column(name = "total_cost", precision = 10, scale = 2)
+    private BigDecimal totalCost;
 
     @OneToMany(mappedBy = "order")
     private Set<OrderFood> orderFoods = new LinkedHashSet<>();
