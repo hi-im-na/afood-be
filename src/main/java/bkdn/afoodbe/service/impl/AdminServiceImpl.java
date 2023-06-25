@@ -13,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -53,10 +54,20 @@ public class AdminServiceImpl implements IAdminService {
 
 
     @Override
-    public void updateStaffRole(String username, String role) {
+    public void updateStaffRoleByUsername(String username, String role) {
         Staff staff = staffRepository.findByUsername(username);
         if (staff == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Staff" + username + "not found");
+        }
+        staff.setRole(Role.valueOf(role));
+        staffRepository.saveAndFlush(staff);
+    }
+
+    @Override
+    public void updateStaffRoleById(int id, String role) {
+        Staff staff = staffRepository.findById(id);
+        if (staff == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Staff" + id + "not found");
         }
         staff.setRole(Role.valueOf(role));
         staffRepository.saveAndFlush(staff);
@@ -69,5 +80,31 @@ public class AdminServiceImpl implements IAdminService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Staff" + username + "not found");
         }
         staffRepository.delete(staff);
+    }
+
+    @Override
+    public void deleteStaffById(int id) {
+        Staff staff = staffRepository.findById(id);
+        if (staff == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Staff" + id + "not found");
+        }
+        staffRepository.delete(staff);
+    }
+
+    @Override
+    public StaffDTO updateSalary(int id, BigDecimal salary) {
+        Staff staff = staffRepository.findById(id);
+        if (staff == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Staff" + id + "not found");
+        }
+        try {
+            staff.setSalary(salary);
+//            salary = salary.setScale(2);
+        } catch (ArithmeticException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Salary is invalid");
+        } catch (Exception exception) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Scs cai j dod");
+        }
+        return StaffDTO.toStaffDTO(staffRepository.saveAndFlush(staff));
     }
 }

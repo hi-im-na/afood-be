@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -30,15 +31,33 @@ public class AdminController {
         return ResponseEntity.ok(staffDTO);
     }
 
-    @DeleteMapping("/staffs/{username}")
+    @DeleteMapping("/staffs/deleteByUsername/{username}")
     public ResponseEntity<Object> deleteStaff(@PathVariable("username") String username) {
         adminService.deleteStaff(username);
         return ResponseEntity.ok("Delete success");
     }
 
-    @PutMapping("/staffs/{username}/role")
+    @DeleteMapping("/staffs/deleteById/{id}")
+    public ResponseEntity<Object> deleteStaffById(@PathVariable("id") int id) {
+        adminService.deleteStaffById(id);
+        return ResponseEntity.ok("Delete success");
+    }
+
+    @PutMapping("/staffs/{username}/roleByUsername")
     public ResponseEntity<Object> updateStaffRole(@PathVariable("username") String username, @RequestParam("role") String role) {
-        adminService.updateStaffRole(username, role);
+        adminService.updateStaffRoleByUsername(username, role);
         return ResponseEntity.ok("Update success");
+    }
+
+    @PutMapping("/staffs/{id}/roleById")
+    public ResponseEntity<Object> updateStaffRole(@PathVariable("id") int id, @RequestParam("role") String role) {
+        adminService.updateStaffRoleById(id, role);
+        return ResponseEntity.ok("Update success");
+    }
+
+    @PutMapping("/staffs/{id}/salary")
+    public ResponseEntity<Object> updateSalary(@PathVariable("id") int id, @RequestParam("salary") String salary) {
+        StaffDTO staffDTO = adminService.updateSalary(id, new BigDecimal(salary));
+        return ResponseEntity.ok(staffDTO);
     }
 }

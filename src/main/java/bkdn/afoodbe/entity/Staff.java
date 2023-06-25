@@ -4,6 +4,7 @@ import bkdn.afoodbe.model.Role;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.math.BigDecimal;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -39,6 +40,9 @@ public class Staff {
 
     @Column(name = "citizen_id", length = 45)
     private String citizenId;
+
+    @Column(name = "salary", nullable = true, precision = 10, scale = 2)
+    private BigDecimal salary;
 
     @OneToMany(mappedBy = "staff")
     private Set<Order> orders = new LinkedHashSet<>();

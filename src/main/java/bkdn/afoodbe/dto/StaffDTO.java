@@ -5,6 +5,7 @@ import bkdn.afoodbe.model.Role;
 import lombok.Builder;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 @Builder
 public record StaffDTO(
@@ -13,7 +14,9 @@ public record StaffDTO(
         Role role,
         String fullName,
         String phoneNumber,
-        String citizenId) implements Serializable {
+        String citizenId,
+        BigDecimal salary
+) implements Serializable {
     public static StaffDTO toStaffDTO(Staff staff) {
         return StaffDTO.builder()
                 .id(staff.getId())
@@ -22,6 +25,7 @@ public record StaffDTO(
                 .fullName(staff.getFullName())
                 .phoneNumber(staff.getPhoneNumber())
                 .citizenId(staff.getCitizenId())
+                .salary(staff.getSalary())
                 .build();
     }
 }
