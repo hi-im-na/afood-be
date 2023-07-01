@@ -4,6 +4,7 @@ import bkdn.afoodbe.dto.StaffDTO;
 import bkdn.afoodbe.entity.Staff;
 import bkdn.afoodbe.repository.StaffRepository;
 import bkdn.afoodbe.service.IStaffService;
+import bkdn.afoodbe.service.NgayCongService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,7 +18,7 @@ public class StaffServiceImpl implements IStaffService {
 
     private final StaffRepository staffRepository;
     private final PasswordEncoder passwordEncoder;
-
+    private final NgayCongService ngayCongService;
 
     @Override
     public StaffDTO getStaffInfo(String username) {

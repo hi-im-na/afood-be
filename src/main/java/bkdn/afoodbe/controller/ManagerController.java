@@ -106,18 +106,18 @@ public class ManagerController {
         return ResponseEntity.ok(conversionRate);
     }
 
-    @PostMapping("/orders/addorder")
-    public ResponseEntity<Object> addOrder(CreateOrderDto createOrderDto) {
-        System.out.println("createOrderDto = " + createOrderDto);
-        OrderDto order = orderService.addOrder(createOrderDto);
-        return ResponseEntity.ok(order);
-    }
-
-    @PostMapping("/orders/addfoodtoorder")
-    public ResponseEntity<Object> addFoodToOrder(int orderId, int foodId, int quantity) {
-        OrderFoodDto orderFood = orderFoodService.addOrderFood(orderId, foodId, quantity);
-        return ResponseEntity.ok(orderFood);
-    }
+//    @PostMapping("/orders/addorder")
+//    public ResponseEntity<Object> addOrder(CreateOrderDto createOrderDto) {
+//        System.out.println("createOrderDto = " + createOrderDto);
+//        OrderDto order = orderService.addOrder(createOrderDto);
+//        return ResponseEntity.ok(order);
+//    }
+//
+//    @PostMapping("/orders/addfoodtoorder")
+//    public ResponseEntity<Object> addFoodToOrder(int orderId, int foodId, int quantity) {
+//        OrderFoodDto orderFood = orderFoodService.addOrderFood(orderId, foodId, quantity);
+//        return ResponseEntity.ok(orderFood);
+//    }
 
     @DeleteMapping("/orders/deletefoodfromorder")
     public ResponseEntity<Object> deleteFoodFromOrder(int orderId, int foodId) {

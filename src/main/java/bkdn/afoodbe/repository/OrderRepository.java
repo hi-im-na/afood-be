@@ -20,4 +20,6 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
 
     @Query("SELECT count(o) from Order o where o.orderStatus = 'CANCELLED'")
     Long countUnpaidOrders();
+
+    void deleteByStaffId(Integer staffId);
 }
